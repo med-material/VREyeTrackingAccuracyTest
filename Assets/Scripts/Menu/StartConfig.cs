@@ -35,7 +35,9 @@ public class StartConfig : MonoBehaviour
         makeUp = isMakeUpToggle.isOn;
         glasses = isGlassesToggle.isOn;
         gazeDot = isGazeDotToggle.isOn;
+        PlayerPrefs.SetInt("Settings:GazeDot", gazeDot ? 1: 0);
         grid = isGridToggle.isOn;
+        PlayerPrefs.SetInt("Settings:Grid", grid ? 1: 0);
         inputMode = isInputMode.isOn;
         print(targetLifeSpanValue.text);
         if (targetLifeSpanTxt.enabled)

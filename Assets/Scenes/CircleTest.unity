@@ -3295,6 +3295,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gazePosObj: {fileID: 1568034941}
   menu: {fileID: 1652858463}
+  gridObject: {fileID: 518187635}
+  gazeDispObject: {fileID: 1467853712}
 --- !u!4 &1580673202
 Transform:
   m_ObjectHideFlags: 0

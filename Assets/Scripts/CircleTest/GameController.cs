@@ -17,6 +17,12 @@ public class GameController : MonoBehaviour
     // private bool dotMarkVisibility;
     public GameObject menu;
 
+    [SerializeField]
+    private GameObject gridObject;
+
+    [SerializeField]
+    private GameObject gazeDispObject;
+
     // Use this for initialization
     void Start()
     {
@@ -24,6 +30,24 @@ public class GameController : MonoBehaviour
         rCaster = Camera.main.GetComponent<RayCaster>();
         LoggerBehavior.sceneName = "CircleTest";
         LoggerBehavior.sceneTimer = 0;
+
+        bool grid = PlayerPrefs.GetInt("Settings:Grid") == 1;
+        bool gazeDot = PlayerPrefs.GetInt("Settings:GazeDot") == 1;
+        if (grid) {
+            gridObject.SetActive(true);
+        } else {
+            gridObject.SetActive(false);
+        }
+        if (gazeDot) {
+            gazeDispObject.SetActive(true);
+            gazePosObj.SetActive(true);
+        } else {
+            gazeDispObject.SetActive(false);
+            gazePosObj.SetActive(false);
+        }
+        // Toggle off grid
+        // Toggle off GazeDispersion and GazePos
+
     }
 
     // Update is called once per frame
