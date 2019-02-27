@@ -33,6 +33,9 @@ public class LoggingManager : MonoBehaviour {
 
 	private float startTime = 0f;
 
+	[SerializeField]
+	private StartConfig startConfig;
+
 	void Awake () {
 		logCollection = new Dictionary<string, List<string>>();
 
@@ -64,6 +67,13 @@ public class LoggingManager : MonoBehaviour {
 	}
 
 	public void ToggleStartCalibration() {
+		if (string.IsNullOrEmpty(emailInputField.text)) {
+			return;
+		}
+		if (string.IsNullOrEmpty(participantInputField.text)) {
+			return;
+		}
+
 		if (!hasLoggedCalibration) {
 			startTime = 0f;
 			metaCollection["Email"].Add(emailInputField.text);
@@ -97,6 +107,7 @@ public class LoggingManager : MonoBehaviour {
 			hasLoggedCalibration = true;
 		
 		}
+		startConfig.startCalibration();
 	}
 
 	public void DuplicateMetaColumns() {
