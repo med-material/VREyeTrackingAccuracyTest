@@ -30,7 +30,11 @@ public class DrawGazePath : MonoBehaviour
             currentLinePoints.Clear();
             lastTarget = SpawnCircle.targetCircle[0];
         }
-        //avoid saving staring position to save place, add the position and draw the path
+        //avoid saving staring position to save place, add the position and draw the 
+        if (GazeMarker.gazePath.Count == 0) {
+            return;
+        } 
+
         if (lastPos != GazeMarker.gazePath[GazeMarker.gazePath.Count - 1])
         {
             lastPos = GazeMarker.gazePath[GazeMarker.gazePath.Count - 1];
