@@ -2355,7 +2355,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'User ID :'
+  m_Text: 'User ID* :'
 --- !u!222 &1340807767
 CanvasRenderer:
   m_ObjectHideFlags: 0

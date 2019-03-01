@@ -14,6 +14,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+        menu.gameObject.SetActive(!menu.activeSelf);
     }
 
     // Update is called once per frame

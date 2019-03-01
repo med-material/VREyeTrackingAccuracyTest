@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class LoggingManager : MonoBehaviour {
 
+	private Dictionary<string, List<string>> metaCollection;
+
 	private Dictionary<string, List<string>> logCollection;
 
 	private ConnectToMySQL mySQL;
@@ -31,8 +33,6 @@ public class LoggingManager : MonoBehaviour {
 
 	private float startTime = 0f;
 
-	private bool calibrationBegun = false;
-
 	void Awake () {
 		logCollection = new Dictionary<string, List<string>>();
 
@@ -42,12 +42,21 @@ public class LoggingManager : MonoBehaviour {
 		logCollection.Add("ParticipantNumber", new List<string>());
 		logCollection.Add("CircleName", new List<string>());
 		logCollection.Add("EyeTrackAccuracy", new List<string>());
-		logCollection.Add("TimeToShrinkCircle", new List<string>());
 		logCollection.Add("CustomCondition", new List<string>());
-		logCollection.Add("TotalTestTime", new List<string>());
 		logCollection.Add("ShowGazeDot", new List<string>());
 		logCollection.Add("ShowGrid", new List<string>());
 		logCollection.Add("SpacebarInteract", new List<string>());
+
+		metaCollection = new Dictionary<string, List<string>>();
+		metaCollection.Add("Email", new List<string>());
+		metaCollection.Add("DateAdded", new List<string>());
+		metaCollection.Add("ParticipantNumber", new List<string>());
+		metaCollection.Add("CircleName", new List<string>());
+		metaCollection.Add("EyeTrackAccuracy", new List<string>());
+		metaCollection.Add("CustomCondition", new List<string>());
+		metaCollection.Add("ShowGazeDot", new List<string>());
+		metaCollection.Add("ShowGrid", new List<string>());
+		metaCollection.Add("SpacebarInteract", new List<string>());
 
 		mySQL = gameObject.GetComponent<ConnectToMySQL>();
 		
@@ -57,48 +66,47 @@ public class LoggingManager : MonoBehaviour {
 	public void ToggleStartCalibration() {
 		if (!hasLoggedCalibration) {
 			startTime = 0f;
-			logCollection["Email"].Add(emailInputField.text);
-			string date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-			logCollection["DateAdded"].Add(date);
-			logCollection["ParticipantNumber"].Add(participantInputField.text);
+			metaCollection["Email"].Add(emailInputField.text);
+			
+			metaCollection["ParticipantNumber"].Add(participantInputField.text);
 
 			if (showGazeDot.isOn) {
-			logCollection["ShowGazeDot"].Add("On");
+			metaCollection["ShowGazeDot"].Add("On");
 			} else {
-			logCollection["ShowGazeDot"].Add("Off");
+			metaCollection["ShowGazeDot"].Add("Off");
 			}
 
 			if (showGrid.isOn) {
-			logCollection["ShowGrid"].Add("On");
+			metaCollection["ShowGrid"].Add("On");
 			} else {
-			logCollection["ShowGrid"].Add("Off");			
+			metaCollection["ShowGrid"].Add("Off");			
 			}
 
 			if (spacebarInteractToggle.isOn) {
-			logCollection["SpacebarInteract"].Add("On");
+			metaCollection["SpacebarInteract"].Add("On");
 			} else {
-			logCollection["SpacebarInteract"].Add("Off");
+			metaCollection["SpacebarInteract"].Add("Off");
 			}
 
-			logCollection["CustomCondition"].Add(customConditionInputField.text);
+			if (string.IsNullOrEmpty(customConditionInputField.text)) {
+				metaCollection["CustomCondition"].Add("No Condition");				
+			} else {
+				metaCollection["CustomCondition"].Add(customConditionInputField.text);
+			}
+
 			hasLoggedCalibration = true;
-
-			// Fake Values
-			logCollection["CircleName"].Add("Test");
-			logCollection["EyeTrackAccuracy"].Add("0");
-			logCollection["TimeToShrinkCircle"].Add("0"); 
-			logCollection["TotalTestTime"].Add("0");
-
+		
 		}
 	}
 
-	void Update() {
-		if (calibrationBegun) {
-			startTime += Time.deltaTime;
-		}
+	public void DuplicateMetaColumns() {
+		logCollection["Email"].Add(metaCollection["Email"][0]);
+		logCollection["ParticipantNumber"].Add(metaCollection["ParticipantNumber"][0]);
+		logCollection["ShowGazeDot"].Add(metaCollection["ShowGazeDot"][0]);
+		logCollection["ShowGrid"].Add(metaCollection["ShowGrid"][0]);
+		logCollection["SpacebarInteract"].Add(metaCollection["SpacebarInteract"][0]);
+		logCollection["CustomCondition"].Add(metaCollection["CustomCondition"][0]);	
 	}
-
-
 
 	public void WriteToLog(string varName, string varValue) {
 		logCollection[varName].Add(varValue);
@@ -111,6 +119,7 @@ public class LoggingManager : MonoBehaviour {
 		mySQL.AddToUploadQueue(logCollection);
 		mySQL.UploadNow();
 		foreach (string key in logCollection.Keys) {
+			Debug.Log("Key: " + key + ", Count: " + logCollection[key].Count.ToString());
 			logCollection[key].Clear();
 		}
 	}

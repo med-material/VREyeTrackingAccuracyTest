@@ -3,12 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class SpawnCircle : MonoBehaviour
 {
 
     public GameObject spawnObject;
     public GameObject gazeDot;
+
+    public enum SpawnArea {
+        UpperLeft,
+        UpperCenter,
+        UpperRight,
+        MiddleLeft,
+        MiddleCenter,
+        MiddleRight,
+        BottomLeft,
+        BottomCenter,
+        BottomRight
+    }
 
     private Vector3[] spawnArea =
     {new Vector3(-30f,30f,-0.05f), new Vector3(0f,30f,-0.05f), new Vector3(30f,30f,-0.05f),
@@ -26,13 +39,20 @@ public class SpawnCircle : MonoBehaviour
     public Text countObj;
     private float countDown = 3f;
 
+    private bool hasLogged = true;
+
     public static List<GameObject> targetCircle = new List<GameObject>();
     public List<GameObject> offsetGazeList = new List<GameObject>();
+
+    LoggingManager loggingManager;
+
+    private float currentEyeAccuracy = -1f;
 
     // Use this for initialization
     void Start()
     {
         index = 0;
+        loggingManager = GameObject.Find("LoggingManager").GetComponent<LoggingManager>();
     }
 
     // Update is called once per frame
@@ -51,26 +71,42 @@ public class SpawnCircle : MonoBehaviour
         }
 
         //if there is no circle on the grid
-        if (targetCircle.Count < 1)
-        {
+        if (targetCircle.Count < 1) {
+
+            if (!hasLogged) {
+                Debug.Log("Logging circle for " + Enum.GetName(typeof(SpawnArea), (SpawnArea)index));
+                string date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                loggingManager.WriteToLog("DateAdded",date);
+                loggingManager.WriteToLog("CircleName", Enum.GetName(typeof(SpawnArea), (SpawnArea)index));
+                loggingManager.WriteToLog("EyeTrackAccuracy", Math.Abs(currentEyeAccuracy).ToString("0.00"));
+                loggingManager.DuplicateMetaColumns();
+                hasLogged = true;
+            }
+
             //if the list of spawn area contain a position not visited yet,
             //else we show the result of the test
             if (isVisited.Contains(false))
             {
+
                 //get a random index which is not a visited position
-                index = Random.Range(0, 9);
+                index = UnityEngine.Random.Range(0, 9);
                 while (isVisited[index] == true)
                 {
-                    index = Random.Range(0, 9);
+                    index = UnityEngine.Random.Range(0, 9);
                 }
                 isVisited[index] = true; //set the index position visited to true
                 indexOrder.Add(index); //setup the spawn order list
                 newCircle(index); //create the circle from that index
+                hasLogged = false;
+                
             }
             else
             {
+                loggingManager.UploadLogs();
                 Result();
             }
+        } else {
+            currentEyeAccuracy = 1f - targetCircle[targetCircle.Count-1].transform.localScale.x * (1f / 30f);
         }
     }
 
