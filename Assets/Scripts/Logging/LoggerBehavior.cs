@@ -14,6 +14,9 @@ public class LoggerBehavior : MonoBehaviour
 
     private static Logger _logger;
     private static List<object> _toLog;
+
+    private LoggingManager loggingManager; // this logging manager facilitates uploading to DB.
+
     private Vector3 gazeToWorld;
     private static string CSVheader = AppConstants.CsvFirstRow;
     private static string CSVuserConfig = AppConstants.CSVUserConfigRow;
