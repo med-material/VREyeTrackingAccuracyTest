@@ -52,8 +52,8 @@ public class LoggerBehavior : MonoBehaviour
             circleYpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.y, 3) : double.NaN;
             CircleInfo();
         }
-        //DoLog();
-        //AddToLog();
+        DoLog();
+        AddToLog();
         timer += Time.deltaTime;
     }
 
