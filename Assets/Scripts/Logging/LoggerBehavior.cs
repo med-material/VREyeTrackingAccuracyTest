@@ -4,6 +4,7 @@
 // outcommented parts doesn't work in Pupil Labs Plugin, but is used in another project
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -34,6 +35,7 @@ public class LoggerBehavior : MonoBehaviour
     private int circleIndex;
 
     private float accuracyCalc;
+    private IEnumerator coroutine;
 
     //private Camera dedicatedCapture;
 
@@ -44,6 +46,8 @@ public class LoggerBehavior : MonoBehaviour
     {
         _toLog = new List<object>();
         StartConfigLog();
+        coroutine = LoggerLoop(0.05f); // Log every 50ms
+        StartCoroutine(coroutine);
     }
 
     private void Update()
@@ -57,9 +61,18 @@ public class LoggerBehavior : MonoBehaviour
             circleYpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.y, 3) : double.NaN;
             CircleInfo();
         }
-        DoLog();
-        AddToLog();
+
         timer += Time.deltaTime;
+    }
+
+    private IEnumerator LoggerLoop(float waitTime) {
+        while (true) {
+            // Bastian: Shouldnt these be reversed?
+            DoLog();
+            AddToLog();
+            yield return new WaitForSeconds(waitTime);
+        }
+
     }
 
     /// <summary>
