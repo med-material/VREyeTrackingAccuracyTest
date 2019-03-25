@@ -30,6 +30,11 @@ public class LoggerBehavior : MonoBehaviour
     public static string sceneName = "";
     private float timer;
 
+    private string circleLabel;
+    private int circleIndex;
+
+    private float accuracyCalc;
+
     //private Camera dedicatedCapture;
 
 
@@ -68,6 +73,7 @@ public class LoggerBehavior : MonoBehaviour
             TTFF = circleObject.GetComponent<CircleLife>().TTFF;
         else
             TTFF = 0;
+        circleIndex = circleObject.GetComponent<CircleLife>().index;
     }
 
     private void AddToLog()
@@ -96,6 +102,9 @@ public class LoggerBehavior : MonoBehaviour
             logcircleXpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.x, 3) : double.NaN,
             logcircleYpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.y, 3) : double.NaN,
 
+            // circleLabel
+            circleLabel = !String.IsNullOrEmpty(circleLabel) ? Enum.GetName(typeof(SpawnArea), (SpawnArea)circleIndex) : "None",
+
             //gaze position on X and Y
             j = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilData._2D.GazePosition.x, 3) : double.NaN,
             k = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilData._2D.GazePosition.y, 3) : double.NaN,
@@ -114,6 +123,8 @@ public class LoggerBehavior : MonoBehaviour
 
             //target size in the accuracy test scene, can be translated to the offset from the center of the scene
             circleSize = circleObject != null ? Math.Round(circleObject.transform.localScale.x, 3) : double.NaN,
+            accuracyCalc = circleObject != null ? circleObject.transform.localScale.x * (1f / 30f) : double.NaN,
+
             offsetX = Math.Round(Convert.ToSingle(gazePosx) - circleXpos, 3),
             offsetY = Math.Round(Convert.ToSingle(gazePosy) - circleYpos, 3),
             //TTFF of the targets in the accuracy test scene

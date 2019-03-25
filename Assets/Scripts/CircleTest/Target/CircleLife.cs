@@ -16,7 +16,7 @@ public class CircleLife : MonoBehaviour
     public float TTFF;
     public bool isTTFF;
     private bool isBigger, isSmaller;
-    private int index;
+    public int index;
     public float lifeTime;
 
 

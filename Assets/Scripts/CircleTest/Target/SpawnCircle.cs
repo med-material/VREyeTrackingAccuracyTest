@@ -5,23 +5,23 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 
+public enum SpawnArea {
+    UpperLeft,
+    UpperCenter,
+    UpperRight,
+    MiddleLeft,
+    MiddleCenter,
+    MiddleRight,
+    BottomLeft,
+    BottomCenter,
+    BottomRight
+}
+
 public class SpawnCircle : MonoBehaviour
 {
 
     public GameObject spawnObject;
     public GameObject gazeDot;
-
-    public enum SpawnArea {
-        UpperLeft,
-        UpperCenter,
-        UpperRight,
-        MiddleLeft,
-        MiddleCenter,
-        MiddleRight,
-        BottomLeft,
-        BottomCenter,
-        BottomRight
-    }
 
     private Vector3[] spawnArea =
     {new Vector3(-30f,30f,-0.05f), new Vector3(0f,30f,-0.05f), new Vector3(30f,30f,-0.05f),
@@ -98,7 +98,6 @@ public class SpawnCircle : MonoBehaviour
                 indexOrder.Add(index); //setup the spawn order list
                 newCircle(index); //create the circle from that index
                 hasLogged = false;
-                
             }
             else
             {
