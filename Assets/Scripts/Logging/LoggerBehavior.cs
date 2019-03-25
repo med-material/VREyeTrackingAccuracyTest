@@ -32,7 +32,7 @@ public class LoggerBehavior : MonoBehaviour
     private float timer;
 
     private string circleLabel;
-    private int circleIndex;
+    private int circleIndex = -1;
 
     private float accuracyCalc;
     private IEnumerator coroutine;
@@ -107,7 +107,7 @@ public class LoggerBehavior : MonoBehaviour
             // default variables for all scenes
             a = Math.Round(timer, 3),
             // system date time
-            systemDateTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+            systemDateTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
 
             //check if we are in accuracy test or fov calibration scene
             sname = sceneName != "" ? sceneName : "No test scene",
@@ -117,7 +117,7 @@ public class LoggerBehavior : MonoBehaviour
             fps = (int)(1.0f / Time.deltaTime),
 
             // circleLabel
-            circleLabel = !String.IsNullOrEmpty(circleLabel) ? Enum.GetName(typeof(SpawnArea), (SpawnArea)circleIndex) : "None",
+            circleLabel = circleIndex != -1 ? Enum.GetName(typeof(SpawnArea), (SpawnArea)circleIndex) : "None",
 
             //targets position from the accuracy test scene
             logcircleXpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.x, 3) : double.NaN,
