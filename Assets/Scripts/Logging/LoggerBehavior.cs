@@ -37,6 +37,8 @@ public class LoggerBehavior : MonoBehaviour
     private float accuracyCalc;
     private IEnumerator coroutine;
 
+    private string systemDateTime;
+
     //private Camera dedicatedCapture;
 
 
@@ -104,6 +106,9 @@ public class LoggerBehavior : MonoBehaviour
         {
             // default variables for all scenes
             a = Math.Round(timer, 3),
+            // system date time
+            systemDateTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+
             //check if we are in accuracy test or fov calibration scene
             sname = sceneName != "" ? sceneName : "No test scene",
             //scene timer
