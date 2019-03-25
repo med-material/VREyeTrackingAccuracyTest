@@ -116,12 +116,12 @@ public class LoggerBehavior : MonoBehaviour
             //frames per second during the last frame, could calculate an average frame rate instead
             fps = (int)(1.0f / Time.deltaTime),
 
+            // circleLabel
+            circleLabel = !String.IsNullOrEmpty(circleLabel) ? Enum.GetName(typeof(SpawnArea), (SpawnArea)circleIndex) : "None",
+
             //targets position from the accuracy test scene
             logcircleXpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.x, 3) : double.NaN,
             logcircleYpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.y, 3) : double.NaN,
-
-            // circleLabel
-            circleLabel = !String.IsNullOrEmpty(circleLabel) ? Enum.GetName(typeof(SpawnArea), (SpawnArea)circleIndex) : "None",
 
             //gaze position on X and Y
             j = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilData._2D.GazePosition.x, 3) : double.NaN,
