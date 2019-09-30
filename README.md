@@ -41,4 +41,4 @@ started the application + the id (e.g. 02-43-00_id-778899.csv).
 
 
 Contributors :
-Alexandre MONNIER, Tanguy BLOCHET, Romain JUNCA, Arthur SALVAT, Bastian Ilso
+Alexandre MONNIER, Tanguy BLOCHET, Romain JUNCA, Arthur SALVAT, Bastian Ilso, Yohann NERAUD.
