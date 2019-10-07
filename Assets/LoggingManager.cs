@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿//
+// Copyright: Aalborg University
+// Author: YoNeXia <yohann.neraud@viacesi.fr> (https://gitlab.com/YoNeXia)
+// Git: https://github.com/med-material/VREyeTrackingAccuracyTest
+//
+// Date: 10/7/2019
+//
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;

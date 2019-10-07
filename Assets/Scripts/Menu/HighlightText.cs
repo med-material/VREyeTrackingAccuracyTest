@@ -3,7 +3,7 @@
 // Author: YoNeXia <yohann.neraud@viacesi.fr> (https://gitlab.com/YoNeXia)
 // Git: https://github.com/med-material/VREyeTrackingAccuracyTest
 //
-// Date: 9/27/2019
+// Date: 10/7/2019
 //
 using UnityEngine;
 using UnityEngine.UI;
