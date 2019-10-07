@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿//
+// Copyright: Aalborg University
+// Author: YoNeXia <yohann.neraud@viacesi.fr> (https://gitlab.com/YoNeXia)
+// Git: https://github.com/med-material/VREyeTrackingAccuracyTest
+//
+// Date: 10/7/2019
+//
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
