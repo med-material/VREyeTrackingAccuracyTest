@@ -94,7 +94,10 @@ public class LoggingManager : MonoBehaviour
         {
             return;
         }
-
+        if (!CheckIntValue(userInputField.text, 1) || !CheckIntValue(testInputField.text, 2))
+        {
+            return;
+        }
 
         if (!hasLoggedCalibration)
         {
@@ -184,13 +187,11 @@ public class LoggingManager : MonoBehaviour
         if (string.IsNullOrEmpty(userID))
         {
             errorField.GetComponent<ErrorField>().ChangeTextValue(2);
-            Debug.Log(userID);
             return false;
         }
         if (string.IsNullOrEmpty(testNumber))
         {
             errorField.GetComponent<ErrorField>().ChangeTextValue(3);
-            Debug.Log(testNumber);
             return false;
         }
         return true;
@@ -206,4 +207,25 @@ public class LoggingManager : MonoBehaviour
         errorField.GetComponent<ErrorField>().ChangeTextValue(0);
         return true;
     }
+
+    private bool CheckIntValue(string field, int i)
+    {
+        if (!Regex.IsMatch(field[field.Length - 1].ToString(), "[0-9]", RegexOptions.IgnoreCase))
+        {
+            switch (i)
+            {
+                case 1:
+                    errorField.GetComponent<ErrorField>().ChangeTextValue(5);
+                    break;
+                case 2:
+                    errorField.GetComponent<ErrorField>().ChangeTextValue(6);
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+        return true;
+    }
+
 }
