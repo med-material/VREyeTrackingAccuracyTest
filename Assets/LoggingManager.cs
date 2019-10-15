@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +25,9 @@ public class LoggingManager : MonoBehaviour
     private InputField commentInputField;
 
     [SerializeField]
+    private Text errorField;
+
+    [SerializeField]
     private Toggle spacebarInteractToggle;
 
     [SerializeField]
@@ -39,9 +42,6 @@ public class LoggingManager : MonoBehaviour
 
     [SerializeField]
     private StartConfig startConfig;
-
-    [SerializeField]
-    private Text missingField;
 
     void Awake()
     {
@@ -80,6 +80,10 @@ public class LoggingManager : MonoBehaviour
         {
             return;
         }
+        if (!EmailIsValid(emailInputField.text))
+        {
+            return;
+        }
 
         if (!hasLoggedCalibration)
         {
@@ -114,7 +118,6 @@ public class LoggingManager : MonoBehaviour
             {
                 metaCollection["SpacebarInteract"].Add("Off");
             }
-
             if (string.IsNullOrEmpty(commentInputField.text))
             {
                 metaCollection["Comment"].Add("No Condition");
@@ -163,22 +166,32 @@ public class LoggingManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(email))
         {
-            missingField.GetComponent<MissingField>().ChangeTextValue(1);
-            Debug.Log(email);
+            errorField.GetComponent<ErrorField>().ChangeTextValue(1);
             return false;
         }
         if (string.IsNullOrEmpty(userID))
         {
-            missingField.GetComponent<MissingField>().ChangeTextValue(2);
+            errorField.GetComponent<ErrorField>().ChangeTextValue(2);
             Debug.Log(userID);
             return false;
         }
         if (string.IsNullOrEmpty(testNumber))
         {
-            missingField.GetComponent<MissingField>().ChangeTextValue(3);
+            errorField.GetComponent<ErrorField>().ChangeTextValue(3);
             Debug.Log(testNumber);
             return false;
         }
+        return true;
+    }
+
+    private bool EmailIsValid(string email)
+    {
+        if (!Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+        {
+            errorField.GetComponent<ErrorField>().ChangeTextValue(4);
+            return false;
+        }
+        errorField.GetComponent<ErrorField>().ChangeTextValue(0);
         return true;
     }
 }

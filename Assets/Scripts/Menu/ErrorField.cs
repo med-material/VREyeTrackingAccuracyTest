@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MissingField : MonoBehaviour
+public class ErrorField : MonoBehaviour
 {
 
     private Text missingField;
@@ -27,7 +27,11 @@ public class MissingField : MonoBehaviour
             case 3:
                 missingField.text = "Warning, test number field is empty!";
                 break;
+            case 4:
+                missingField.text = "Bad email entered...";
+                break;
             default:
+                missingField.text = "";
                 break;
 
         }
