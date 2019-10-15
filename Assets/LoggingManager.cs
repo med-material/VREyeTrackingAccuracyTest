@@ -19,6 +19,9 @@ public class LoggingManager : MonoBehaviour
     private InputField userInputField;
 
     [SerializeField]
+    private InputField testInputField;
+
+    [SerializeField]
     private InputField commentInputField;
 
     [SerializeField]
@@ -36,6 +39,9 @@ public class LoggingManager : MonoBehaviour
 
     [SerializeField]
     private StartConfig startConfig;
+
+    [SerializeField]
+    private Text missingField;
 
     void Awake()
     {
@@ -70,9 +76,8 @@ public class LoggingManager : MonoBehaviour
 
     public void ToggleStartCalibration()
     {
-        if (string.IsNullOrEmpty(emailInputField.text) || string.IsNullOrEmpty(userInputField.text))
+        if (!CheckEmptyValue(emailInputField.text, userInputField.text, testInputField.text))
         {
-            missingField.GetComponent<MissingField>().ChangeTextValue();
             return;
         }
 
@@ -152,5 +157,28 @@ public class LoggingManager : MonoBehaviour
             Debug.Log("Key: " + key + ", Count: " + logCollection[key].Count.ToString());
             logCollection[key].Clear();
         }
+    }
+
+    private bool CheckEmptyValue(string email, string userID, string testNumber)
+    {
+        if (string.IsNullOrEmpty(email))
+        {
+            missingField.GetComponent<MissingField>().ChangeTextValue(1);
+            Debug.Log(email);
+            return false;
+        }
+        if (string.IsNullOrEmpty(userID))
+        {
+            missingField.GetComponent<MissingField>().ChangeTextValue(2);
+            Debug.Log(userID);
+            return false;
+        }
+        if (string.IsNullOrEmpty(testNumber))
+        {
+            missingField.GetComponent<MissingField>().ChangeTextValue(3);
+            Debug.Log(testNumber);
+            return false;
+        }
+        return true;
     }
 }
