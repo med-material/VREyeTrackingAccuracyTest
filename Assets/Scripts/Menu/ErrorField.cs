@@ -37,6 +37,12 @@ public class ErrorField : MonoBehaviour
             case 4:
                 missingField.text = "Bad email entered...";
                 break;
+            case 5:
+                missingField.text = "Please enter a Participant number";
+                break;
+            case 6:
+                missingField.text = "Please enter a Test number";
+                break;
             default:
                 missingField.text = "";
                 break;

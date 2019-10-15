@@ -5,16 +5,19 @@
 //
 // Date: 10/7/2019
 //
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-public class HighlightText : MonoBehaviour
+public class AdaptField : MonoBehaviour
 {
 
     // Set variables
     private InputField inputField;
     private Text text;
+
+    [SerializeField]
+    private Text errorField;
 
     // Use this for initialization
     void Start()
@@ -37,20 +40,38 @@ public class HighlightText : MonoBehaviour
         switch (inputField.name)
         {
             case "email":
-                text.text = "Enter an email.";
+                text.text = "example@example.com";
                 break;
             case "user":
-                text.text = "Enter an user ID.";
+                text.text = "Participant 1";
                 break;
             case "test":
-                text.text = "Enter a test number.";
+                text.text = "Test 1";
                 break;
             case "comment":
-                text.text = "Enter a comment if necessary.";
+                text.text = "No comment";
                 break;
             default:
                 text.text = "";
                 break;
+        }
+    }
+
+    public void CompleteField()
+    {
+        if (inputField.text != "")
+        {
+            switch (inputField.name)
+            {
+                case "user":
+                    inputField.text = "Participant " + inputField.text;
+                    break;
+                case "test":
+                    inputField.text = "Test " + inputField.text;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
