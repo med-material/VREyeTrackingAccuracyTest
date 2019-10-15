@@ -13,12 +13,14 @@ public class HighlightText : MonoBehaviour
 {
 
     // Set variables
+    private InputField inputField;
     private Text text;
 
     // Use this for initialization
     void Start()
     {
-        // Get component
+        // Get components
+        inputField = GetComponent<InputField>();
         text = GetComponentInChildren<Text>();
     }
 
@@ -32,7 +34,23 @@ public class HighlightText : MonoBehaviour
     // When mouse exit the Input Field
     public void MouseOutInputField()
     {
-        // Set text in iput Field
-        text.text = "";
+        switch (inputField.name)
+        {
+            case "email":
+                text.text = "Enter an email.";
+                break;
+            case "user":
+                text.text = "Enter an user ID.";
+                break;
+            case "test":
+                text.text = "Enter a test number.";
+                break;
+            case "comment":
+                text.text = "Enter a comment if necessary.";
+                break;
+            default:
+                text.text = "";
+                break;
+        }
     }
 }
