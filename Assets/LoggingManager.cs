@@ -25,16 +25,19 @@ public class LoggingManager : MonoBehaviour
     private InputField commentInputField;
 
     [SerializeField]
-    private Text errorField;
+    private Dropdown switchInputDropdown;
 
     [SerializeField]
+    private Text errorField;
+
+    /*[SerializeField]
     private Toggle spacebarInteractToggle;
 
     [SerializeField]
     private Toggle showGrid;
 
     [SerializeField]
-    private Toggle showGazeDot;
+    private Toggle showGazeDot;*/
 
     private bool hasLoggedCalibration = false;
 
@@ -54,8 +57,8 @@ public class LoggingManager : MonoBehaviour
         logCollection.Add("CircleName", new List<string>());
         logCollection.Add("EyeTrackAccuracy", new List<string>());
         logCollection.Add("Comment", new List<string>());
-        logCollection.Add("ShowGazeDot", new List<string>());
-        logCollection.Add("ShowGrid", new List<string>());
+        //logCollection.Add("ShowGazeDot", new List<string>());
+        //logCollection.Add("ShowGrid", new List<string>());
         logCollection.Add("SpacebarInteract", new List<string>());
 
         metaCollection = new Dictionary<string, List<string>>();
@@ -65,8 +68,8 @@ public class LoggingManager : MonoBehaviour
         metaCollection.Add("CircleName", new List<string>());
         metaCollection.Add("EyeTrackAccuracy", new List<string>());
         metaCollection.Add("Comment", new List<string>());
-        metaCollection.Add("ShowGazeDot", new List<string>());
-        metaCollection.Add("ShowGrid", new List<string>());
+        //metaCollection.Add("ShowGazeDot", new List<string>());
+        //metaCollection.Add("ShowGrid", new List<string>());
         metaCollection.Add("SpacebarInteract", new List<string>());
 
         mySQL = gameObject.GetComponent<ConnectToMySQL>();
@@ -85,6 +88,7 @@ public class LoggingManager : MonoBehaviour
             return;
         }
 
+
         if (!hasLoggedCalibration)
         {
             startTime = 0f;
@@ -92,7 +96,7 @@ public class LoggingManager : MonoBehaviour
 
             metaCollection["UserID"].Add(userInputField.text);
 
-            if (showGazeDot.isOn)
+            /*if (showGazeDot.isOn)
             {
                 metaCollection["ShowGazeDot"].Add("On");
             }
@@ -118,6 +122,7 @@ public class LoggingManager : MonoBehaviour
             {
                 metaCollection["SpacebarInteract"].Add("Off");
             }
+            */
             if (string.IsNullOrEmpty(commentInputField.text))
             {
                 metaCollection["Comment"].Add("No Condition");
@@ -137,8 +142,8 @@ public class LoggingManager : MonoBehaviour
     {
         logCollection["Email"].Add(metaCollection["Email"][0]);
         logCollection["UserID"].Add(metaCollection["UserID"][0]);
-        logCollection["ShowGazeDot"].Add(metaCollection["ShowGazeDot"][0]);
-        logCollection["ShowGrid"].Add(metaCollection["ShowGrid"][0]);
+        //logCollection["ShowGazeDot"].Add(metaCollection["ShowGazeDot"][0]);
+        //logCollection["ShowGrid"].Add(metaCollection["ShowGrid"][0]);
         logCollection["SpacebarInteract"].Add(metaCollection["SpacebarInteract"][0]);
         logCollection["Comment"].Add(metaCollection["Comment"][0]);
     }
