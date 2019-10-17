@@ -90,10 +90,10 @@ public class LoggingManager : MonoBehaviour
         {
             return;
         }
-        if (!EmailIsValid(emailInputField.text))
+        /*if (!EmailIsValid(emailInputField.text))
         {
             return;
-        }
+        }*/
         if (!CheckIntValue(userInputField.text, 1) || !CheckIntValue(testInputField.text, 2))
         {
             return;
@@ -194,17 +194,6 @@ public class LoggingManager : MonoBehaviour
             errorField.GetComponent<ErrorField>().ChangeTextValue(3);
             return false;
         }
-        return true;
-    }
-
-    private bool EmailIsValid(string email)
-    {
-        if (!Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
-        {
-            errorField.GetComponent<ErrorField>().ChangeTextValue(4);
-            return false;
-        }
-        errorField.GetComponent<ErrorField>().ChangeTextValue(0);
         return true;
     }
 

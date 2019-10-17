@@ -74,4 +74,17 @@ public class AdaptField : MonoBehaviour
             }
         }
     }
+
+    public void EmailIsValid()
+    {
+        if (!Regex.IsMatch(inputField.text, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+        {
+            inputField.textComponent.color = new Color(1f, 0f, 0f, 1f);
+            errorField.GetComponent<ErrorField>().ChangeTextValue(4);
+            return;
+        }
+        inputField.textComponent.color = new Color(0.196f, 0.196f, 0.196f, 1f);
+        errorField.GetComponent<ErrorField>().ChangeTextValue(0);
+        return;
+    }
 }
