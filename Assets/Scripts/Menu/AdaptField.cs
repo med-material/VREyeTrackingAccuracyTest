@@ -85,12 +85,10 @@ public class AdaptField : MonoBehaviour
     {
         if (!Regex.IsMatch(inputField.text, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
         {
-            inputField.textComponent.color = new Color(1f, 0f, 0f, 1f);
-            errorField.GetComponent<ErrorField>().ChangeTextValue(4);
+            PrintError(true, 4);
             return;
         }
-        inputField.textComponent.color = new Color(0.196f, 0.196f, 0.196f, 1f);
-        errorField.GetComponent<ErrorField>().ChangeTextValue(0);
+        PrintError(false, 0);
         return;
     }
 
@@ -98,25 +96,29 @@ public class AdaptField : MonoBehaviour
     {
         int number;
 
-        inputField.textComponent.color = new Color(0.196f, 0.196f, 0.196f, 1f);
-        errorField.GetComponent<ErrorField>().ChangeTextValue(0);
+        PrintError(false, 0);
         if (Int32.TryParse(inputField.text, out number)) fieldValue.text = inputField.text;
         if (Int32.TryParse(fieldValue.text, out number)) return;
 
         switch (inputField.name)
         {
             case "user":
-                inputField.textComponent.color = new Color(1f, 0f, 0f, 1f);
-                errorField.GetComponent<ErrorField>().ChangeTextValue(5);
+                PrintError(true, 5);
                 break;
             case "test":
-                inputField.textComponent.color = new Color(1f, 0f, 0f, 1f);
-                errorField.GetComponent<ErrorField>().ChangeTextValue(6);
+                PrintError(true, 6);
                 break;
             default:
                 break;
         }
         inputField.text = "";
         return;
+    }
+
+    private void PrintError(bool error, int errorID)
+    {
+        if (error) inputField.textComponent.color = new Color(1f, 0f, 0f, 1f);
+        else inputField.textComponent.color = new Color(0.196f, 0.196f, 0.196f, 1f);
+        errorField.GetComponent<ErrorField>().ChangeTextValue(errorID);
     }
 }
