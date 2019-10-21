@@ -5,6 +5,7 @@
 //
 // Date: 10/7/2019
 //
+using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,9 @@ public class AdaptField : MonoBehaviour
     // Set variables
     private InputField inputField;
     private Text text;
+
+    [SerializeField]
+    private Text fieldValue;
 
     [SerializeField]
     private Text errorField;
@@ -59,7 +63,8 @@ public class AdaptField : MonoBehaviour
 
     public void CompleteField()
     {
-        if (inputField.text != "")
+        fieldValue.text = inputField.text;
+        if (inputField.textComponent)
         {
             switch (inputField.name)
             {
@@ -73,6 +78,7 @@ public class AdaptField : MonoBehaviour
                     break;
             }
         }
+        return;
     }
 
     public void EmailIsValid()
@@ -85,6 +91,32 @@ public class AdaptField : MonoBehaviour
         }
         inputField.textComponent.color = new Color(0.196f, 0.196f, 0.196f, 1f);
         errorField.GetComponent<ErrorField>().ChangeTextValue(0);
+        return;
+    }
+
+    public void CheckIntValue()
+    {
+        int number;
+
+        inputField.textComponent.color = new Color(0.196f, 0.196f, 0.196f, 1f);
+        errorField.GetComponent<ErrorField>().ChangeTextValue(0);
+        if (Int32.TryParse(inputField.text, out number)) fieldValue.text = inputField.text;
+        if (Int32.TryParse(fieldValue.text, out number)) return;
+
+        switch (inputField.name)
+        {
+            case "user":
+                inputField.textComponent.color = new Color(1f, 0f, 0f, 1f);
+                errorField.GetComponent<ErrorField>().ChangeTextValue(5);
+                break;
+            case "test":
+                inputField.textComponent.color = new Color(1f, 0f, 0f, 1f);
+                errorField.GetComponent<ErrorField>().ChangeTextValue(6);
+                break;
+            default:
+                break;
+        }
+        inputField.text = "";
         return;
     }
 }

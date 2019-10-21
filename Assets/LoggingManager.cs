@@ -6,7 +6,6 @@
 // Date: 10/7/2019
 //
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,18 +85,8 @@ public class LoggingManager : MonoBehaviour
 
     public void ToggleStartCalibration()
     {
-        if (!CheckEmptyValue(emailInputField.text, userInputField.text, testInputField.text))
-        {
-            return;
-        }
-        /*if (!EmailIsValid(emailInputField.text))
-        {
-            return;
-        }*/
-        if (!CheckIntValue(userInputField.text, 1) || !CheckIntValue(testInputField.text, 2))
-        {
-            return;
-        }
+        if (!CheckEmptyValue(emailInputField.text, userInputField.text, testInputField.text)) return;
+        if (errorField.text != "") return;
 
         if (!hasLoggedCalibration)
         {
@@ -161,7 +150,6 @@ public class LoggingManager : MonoBehaviour
     public void WriteToLog(string varName, string varValue)
     {
         logCollection[varName].Add(varValue);
-
     }
 
     // TODO: Write to log file on disk as backup
@@ -196,25 +184,4 @@ public class LoggingManager : MonoBehaviour
         }
         return true;
     }
-
-    private bool CheckIntValue(string field, int i)
-    {
-        if (!Regex.IsMatch(field[field.Length - 1].ToString(), "[0-9]", RegexOptions.IgnoreCase))
-        {
-            switch (i)
-            {
-                case 1:
-                    errorField.GetComponent<ErrorField>().ChangeTextValue(5);
-                    break;
-                case 2:
-                    errorField.GetComponent<ErrorField>().ChangeTextValue(6);
-                    break;
-                default:
-                    break;
-            }
-            return false;
-        }
-        return true;
-    }
-
 }
