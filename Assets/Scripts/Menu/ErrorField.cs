@@ -13,12 +13,12 @@ using UnityEngine.UI;
 public class ErrorField : MonoBehaviour
 {
 
-    private Text missingField;
+    private Text errorField;
 
     // Use this for initialization
     void Start()
     {
-        missingField = GetComponent<Text>();
+        errorField = GetComponent<Text>();
     }
 
     public void ChangeTextValue(int field)
@@ -26,25 +26,25 @@ public class ErrorField : MonoBehaviour
         switch (field)
         {
             case 1:
-                missingField.text = "Warning, mail field is empty!";
+                errorField.text = "Warning, mail field is empty!";
                 break;
             case 2:
-                missingField.text = "Warning, user ID field is empty!";
+                errorField.text = "Warning, user ID field is empty!";
                 break;
             case 3:
-                missingField.text = "Warning, test number field is empty!";
+                errorField.text = "Warning, test number field is empty!";
                 break;
             case 4:
-                missingField.text = "Bad email entered...";
+                errorField.text = "Bad email entered...";
                 break;
             case 5:
-                missingField.text = "Please enter a Participant number";
+                errorField.text = "Please enter a Participant number";
                 break;
             case 6:
-                missingField.text = "Please enter a Test number";
+                errorField.text = "Please enter a Test number";
                 break;
             default:
-                missingField.text = "";
+                errorField.text = "";
                 break;
 
         }
