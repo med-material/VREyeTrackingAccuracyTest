@@ -5,25 +5,19 @@
 //
 // Date: 10/7/2019
 //
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TextSetSize : MonoBehaviour
 {
-
     [SerializeField]
-    private Text line_1, line_2;
+    private TextMeshProUGUI original_size, updated_size;
 
     void Update()
     {
-        if (!line_1)
-        {
-            Debug.Log("No first line enter.");
-            return;
-        }
-        line_2.fontSize = line_1.cachedTextGenerator.fontSizeUsedForBestFit;
+        if (!original_size) return;
+
+        updated_size.fontSize = original_size.fontSize;
         return;
     }
 }
