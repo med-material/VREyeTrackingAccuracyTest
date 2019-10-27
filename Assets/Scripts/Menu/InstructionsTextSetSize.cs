@@ -8,7 +8,7 @@
 using TMPro;
 using UnityEngine;
 
-public class TextSetSize : MonoBehaviour
+public class InstructionsTextSetSize : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI original_size, updated_size;

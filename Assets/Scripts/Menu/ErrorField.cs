@@ -37,12 +37,6 @@ public class ErrorField : MonoBehaviour
             case 4:
                 errorField.text = "Bad email entered...";
                 break;
-            case 5:
-                errorField.text = "Please enter a Participant number";
-                break;
-            case 6:
-                errorField.text = "Please enter a Test number";
-                break;
             default:
                 errorField.text = "";
                 break;
