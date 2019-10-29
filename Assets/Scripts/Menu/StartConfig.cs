@@ -10,10 +10,9 @@ public class StartConfig : MonoBehaviour
 
     public static string userID;
     public static float targetLifeSpan;
-    public static bool makeUp, glasses, gazeDot, grid, inputMode;
     public GameObject lifeSpanFieldGameObject;
     public Text userIDValue, targetLifeSpanValue, targetLifeSpanTxt;
-    public Toggle isMakeUpToggle, isGlassesToggle, isGazeDotToggle, isGridToggle, isInputMode;
+    public static bool makeUp = false, glasses = false, gazeDot = true, grid = true, inputMode = true;
 
     /// <summary>
     /// Save all config variables and start calibration 2D
@@ -32,13 +31,10 @@ public class StartConfig : MonoBehaviour
         }
 
         userID = userIDValue.text;
-        makeUp = isMakeUpToggle.isOn;
-        glasses = isGlassesToggle.isOn;
-        gazeDot = isGazeDotToggle.isOn;
+
         PlayerPrefs.SetInt("Settings:GazeDot", gazeDot ? 1: 0);
-        grid = isGridToggle.isOn;
         PlayerPrefs.SetInt("Settings:Grid", grid ? 1: 0);
-        inputMode = isInputMode.isOn;
+
         print(targetLifeSpanValue.text);
         if (targetLifeSpanTxt.enabled)
             targetLifeSpan = Convert.ToSingle(targetLifeSpanValue.text);
