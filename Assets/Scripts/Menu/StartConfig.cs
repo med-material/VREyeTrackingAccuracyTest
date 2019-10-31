@@ -13,6 +13,7 @@ public class StartConfig : MonoBehaviour
     public GameObject lifeSpanFieldGameObject;
     public Text userIDValue, targetLifeSpanValue, targetLifeSpanTxt;
     public static bool makeUp = false, glasses = false, gazeDot = true, grid = true, inputMode = true;
+    public Dropdown targetLifeSpanDropdown;
 
     /// <summary>
     /// Save all config variables and start calibration 2D
@@ -24,22 +25,34 @@ public class StartConfig : MonoBehaviour
             StartCoroutine(InfoMissing(userIDValue));
             return;
         }
-        if (targetLifeSpanTxt.enabled && targetLifeSpanValue.text == "")
-        {
-            StartCoroutine(InfoMissing(targetLifeSpanValue));
-            return;
-        }
 
         userID = userIDValue.text;
-
         PlayerPrefs.SetInt("Settings:GazeDot", gazeDot ? 1: 0);
         PlayerPrefs.SetInt("Settings:Grid", grid ? 1: 0);
 
-        print(targetLifeSpanValue.text);
-        if (targetLifeSpanTxt.enabled)
-            targetLifeSpan = Convert.ToSingle(targetLifeSpanValue.text);
-        else
-            targetLifeSpan = 0;
+        switch(targetLifeSpanDropdown.value)
+        {
+            case 0:
+                inputMode = false;
+                targetLifeSpan = 500;
+                break;
+            case 1:
+                inputMode = false;
+                targetLifeSpan = 1000;
+                break;
+            case 2:
+                inputMode = false;
+                targetLifeSpan = 2000;
+                break;
+            case 3:
+                inputMode = true;
+                targetLifeSpan = 0;
+                break;
+            default:
+                inputMode = true;
+                targetLifeSpan = 0;
+                break;
+        }
 
         StartCoroutine(LoadCurrentScene("2D Calibration Demo"));
     }
