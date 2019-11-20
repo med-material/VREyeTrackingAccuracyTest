@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2D Calibration Demo.unity
     guid: 73d121c75987fb240b9be0221b436c6a
+  - enabled: 1
+    path: Assets/Scenes/ButtonMenuTest.unity
+    guid: a4baab08090e7dc47997367cc1f9284d
   m_configObjects: {}
