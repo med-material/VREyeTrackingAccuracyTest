@@ -50,10 +50,10 @@ public class LoggingManager : MonoBehaviour
         // Add the database columns
         logCollection.Add("Email", new List<string>());
         logCollection.Add("DateAdded", new List<string>());
-        logCollection.Add("UserID", new List<string>());
+        logCollection.Add("ParticipantNumber", new List<string>());
         logCollection.Add("CircleName", new List<string>());
         logCollection.Add("EyeTrackAccuracy", new List<string>());
-        logCollection.Add("Comment", new List<string>());
+        logCollection.Add("CustomCondition", new List<string>());
         logCollection.Add("ShowGazeDot", new List<string>());
         logCollection.Add("ShowGrid", new List<string>());
         logCollection.Add("SpacebarInteract", new List<string>());
@@ -61,10 +61,10 @@ public class LoggingManager : MonoBehaviour
         metaCollection = new Dictionary<string, List<string>>();
         metaCollection.Add("Email", new List<string>());
         metaCollection.Add("DateAdded", new List<string>());
-        metaCollection.Add("UserID", new List<string>());
+        metaCollection.Add("ParticipantNumber", new List<string>());
         metaCollection.Add("CircleName", new List<string>());
         metaCollection.Add("EyeTrackAccuracy", new List<string>());
-        metaCollection.Add("Comment", new List<string>());
+        metaCollection.Add("CustomCondition", new List<string>());
         metaCollection.Add("ShowGazeDot", new List<string>());
         metaCollection.Add("ShowGrid", new List<string>());
         metaCollection.Add("SpacebarInteract", new List<string>());
@@ -84,7 +84,7 @@ public class LoggingManager : MonoBehaviour
             startTime = 0f;
             metaCollection["Email"].Add(emailInputField.text);
 
-            metaCollection["UserID"].Add(userInputField.text);
+            metaCollection["ParticipantNumber"].Add(userInputField.text);
             if (showGazeDot)
             {
                 metaCollection["ShowGazeDot"].Add("On");
@@ -113,11 +113,11 @@ public class LoggingManager : MonoBehaviour
             }
             if (string.IsNullOrEmpty(commentInputField.text))
             {
-                metaCollection["Comment"].Add("No Condition");
+                metaCollection["CustomCondition"].Add("No Condition");
             }
             else
             {
-                metaCollection["Comment"].Add(commentInputField.text);
+                metaCollection["CustomCondition"].Add(commentInputField.text);
             }
 
             hasLoggedCalibration = true;
@@ -129,11 +129,11 @@ public class LoggingManager : MonoBehaviour
     public void DuplicateMetaColumns()
     {
         logCollection["Email"].Add(metaCollection["Email"][0]);
-        logCollection["UserID"].Add(metaCollection["UserID"][0]);
+        logCollection["ParticipantNumber"].Add(metaCollection["ParticipantNumber"][0]);
         logCollection["ShowGazeDot"].Add(metaCollection["ShowGazeDot"][0]);
         logCollection["ShowGrid"].Add(metaCollection["ShowGrid"][0]);
         logCollection["SpacebarInteract"].Add(metaCollection["SpacebarInteract"][0]);
-        logCollection["Comment"].Add(metaCollection["Comment"][0]);
+        logCollection["CustomCondition"].Add(metaCollection["CustomCondition"][0]);
     }
 
     public void WriteToLog(string varName, string varValue)
