@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 
-public enum SpawnArea {
+public enum SpawnArea
+{
     UpperLeft,
     UpperCenter,
     UpperRight,
@@ -19,7 +20,6 @@ public enum SpawnArea {
 
 public class SpawnCircle : MonoBehaviour
 {
-
     public GameObject spawnObject;
     public GameObject gazeDot;
 
@@ -37,7 +37,7 @@ public class SpawnCircle : MonoBehaviour
 
     private int index;
     public Text countObj;
-    private float countDown = 3f;
+    public static float countDown = 3f;
 
     private bool hasLogged = true;
 
@@ -45,6 +45,7 @@ public class SpawnCircle : MonoBehaviour
     public List<GameObject> offsetGazeList = new List<GameObject>();
 
     LoggingManager loggingManager;
+    LoggerBehavior loggerBehavior;
 
     private float currentEyeAccuracy = -1f;
 
@@ -53,6 +54,7 @@ public class SpawnCircle : MonoBehaviour
     {
         index = 0;
         loggingManager = GameObject.Find("LoggingManager").GetComponent<LoggingManager>();
+        loggerBehavior = GameObject.Find("Pupil Manager").GetComponent<LoggerBehavior>();
     }
 
     // Update is called once per frame
@@ -72,7 +74,6 @@ public class SpawnCircle : MonoBehaviour
 
         //if there is no circle on the grid
         if (targetCircle.Count < 1) {
-
             if (!hasLogged) {
                 Debug.Log("Logging circle for " + Enum.GetName(typeof(SpawnArea), (SpawnArea)index));
                 string date = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -87,7 +88,6 @@ public class SpawnCircle : MonoBehaviour
             //else we show the result of the test
             if (isVisited.Contains(false))
             {
-
                 //get a random index which is not a visited position
                 index = UnityEngine.Random.Range(0, 9);
                 while (isVisited[index] == true)
@@ -101,8 +101,9 @@ public class SpawnCircle : MonoBehaviour
             }
             else
             {
-                loggingManager.UploadLogs();
                 Result();
+                loggerBehavior.SetBoolTest(true);
+                loggingManager.UploadLogs();
             }
         } else {
             currentEyeAccuracy = 1f - targetCircle[targetCircle.Count-1].transform.localScale.x * (1f / 30f);
