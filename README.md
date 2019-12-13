@@ -67,7 +67,7 @@ Logs the accuracy for each circle and how much time the participant had to dimin
  * **Target lifespan (ms)**: Lifespan of the targets if the input mode is off (e.g. 4500)
  * **Session Time**: sessions timer, application running since, in seconds (e.g. 58.432)
  * **Scene Name**: current Unity scene's name
- * **Event**: current event running (e.g. Configuration is running, Calibration is running, Accuracy Test is counting down, Accuracy Test is running, Accuracy Test ended)
+ * **Event Name**: current event running during the calibration and accuracy test (e.g. Calibration is running, Accuracy Test is counting down, Accuracy Test is running, Accuracy Test ended)
  * **Scene Timer**: current Unity scene's timer, Unity scene running since, in seconds (e.g. 58.432)
  * **framerate**: current framerate fps (e.g. 60)
  * **circle_pos_x**: target's x position on the accuracy test on the grid (-30 left 0 middle 30 right)
