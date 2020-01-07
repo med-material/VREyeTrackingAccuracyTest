@@ -1,33 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
+﻿using UnityEngine;
 
 /// <summary>
-/// Target lifetime and TTFF,
-/// save his informations when it's destroyed
+///     Target lifetime and TTFF,
+///     save his informations when it's destroyed
 /// </summary>
 public class CircleLife : MonoBehaviour
 {
-    private Vector3 lastSize;
     private Vector3 currentSize;
-    private int nbOfSwitch;
-    private float limitTimer = 1f;
-    public float TTFF;
-    public bool isTTFF;
-    private bool isBigger, isSmaller;
     public int index = -1;
+    private bool isBigger, isSmaller;
+    public bool isTTFF;
+    private Vector3 lastSize;
     public float lifeTime;
+    private float limitTimer = 1f;
+    private int nbOfSwitch;
+    public float TTFF;
 
 
     /// <summary>
-    /// set the index for the lists where it save its data
+    ///     set the index for the lists where it save its data
     /// </summary>
     /// <param name="index"></param>
     public void Init(int index)
     {
         this.index = index;
-        nbOfSwitch = 0;
         isSmaller = true;
         isBigger = true;
         lastSize = gameObject.transform.localScale;
@@ -36,7 +32,7 @@ public class CircleLife : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         //if there is more than 1 circle, return (for result)
         if (SpawnCircle.targetCircle.Count > 1)
@@ -55,7 +51,7 @@ public class CircleLife : MonoBehaviour
     }
 
     /// <summary>
-    /// Auto mode, where no input of another user is needed
+    ///     Auto mode, where no input of another user is needed
     /// </summary>
     private void AutoMode()
     {
@@ -64,32 +60,20 @@ public class CircleLife : MonoBehaviour
         if (currentSize.x < lastSize.x)
         {
             Reducing();
-            lifeTime = StartConfig.targetLifeSpan / 1000;
             //put isTTFF false so the TTFF time doesn't update anymore
             isTTFF = false;
         }
-        if (currentSize.x > lastSize.x)
-        {
-            Extending();
-            lifeTime = StartConfig.targetLifeSpan / 1000;
-        }
-        //if the size of the circle is 0 or less OR if the size edit switched more than 5 times
-        if (currentSize.x <= 0 || nbOfSwitch > 5)
-            SelfDestroy();
+
+        if (currentSize.x > lastSize.x) Extending();
+        if (lifeTime < 0) SelfDestroy();
         //every second reset the number of switch between reducing and extending the circle's size
+        if (limitTimer < 0) limitTimer = 1f;
         limitTimer -= Time.deltaTime;
-        if (limitTimer < 0)
-        {
-            limitTimer = 1f;
-            nbOfSwitch = 0;
-        }
         lifeTime -= Time.deltaTime;
-        if (lifeTime < 0)
-            SelfDestroy();
     }
 
     /// <summary>
-    /// Destroy the target and save the deta
+    ///     Destroy the target and save the deta
     /// </summary>
     private void SelfDestroy()
     {
@@ -102,30 +86,28 @@ public class CircleLife : MonoBehaviour
     }
 
     /// <summary>
-    /// update circle's last size, and increment the number of switch 
-    /// put the reducing bool at false and the extending one to true
+    ///     update circle's last size, and increment the number of switch
+    ///     put the reducing bool at false and the extending one to true
     /// </summary>
     private void Reducing()
     {
         lastSize = currentSize;
         if (isSmaller)
         {
-            nbOfSwitch++;
             isSmaller = false;
             isBigger = true;
         }
     }
 
     /// <summary>
-    /// update circle's last size, and increment the number of switch 
-    /// put the extending bool at false and the reducing one to true
+    ///     update circle's last size, and increment the number of switch
+    ///     put the extending bool at false and the reducing one to true
     /// </summary>
     private void Extending()
     {
         lastSize = currentSize;
         if (isBigger)
         {
-            nbOfSwitch++;
             isBigger = false;
             isSmaller = true;
         }
