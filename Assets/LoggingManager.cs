@@ -31,9 +31,6 @@ public class LoggingManager : MonoBehaviour
     private InputField commentInputField;
 
     [SerializeField]
-    private Dropdown switchInputDropdown;
-
-    [SerializeField]
     private Text errorField;
 
     private bool spacebarInteract = true, showGrid = true, showGazeDot = true, hasLoggedCalibration = false;
@@ -44,7 +41,7 @@ public class LoggingManager : MonoBehaviour
     private StartConfig startConfig;
 
     void Awake()
-    {
+    {        
         logCollection = new Dictionary<string, List<string>>();
 
         // Add the database columns
@@ -78,6 +75,11 @@ public class LoggingManager : MonoBehaviour
     {
         if (!CheckEmptyValue(emailInputField.text, userInputField.text, testInputField.text)) return;
         if (errorField.text != "") return;
+
+        startConfig.startCalibration();
+
+        showGrid = StartConfig.grid;
+        spacebarInteract = StartConfig.inputMode;
 
         if (!hasLoggedCalibration)
         {
@@ -123,7 +125,6 @@ public class LoggingManager : MonoBehaviour
             hasLoggedCalibration = true;
 
         }
-        startConfig.startCalibration();
     }
 
     public void DuplicateMetaColumns()
