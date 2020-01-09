@@ -11,9 +11,15 @@ public class StartConfig : MonoBehaviour
     public static string userID;
     public static float targetLifeSpan;
     public GameObject lifeSpanFieldGameObject;
+    public Toggle gridToggle;
     public Text userIDValue, targetLifeSpanValue, targetLifeSpanTxt;
     public static bool makeUp = false, glasses = false, gazeDot = true, grid = true, inputMode = true;
     public Dropdown targetLifeSpanDropdown;
+
+    private void Start()
+    {
+        grid = gridToggle.isOn;
+    }
 
     /// <summary>
     /// Save all config variables and start calibration 2D
