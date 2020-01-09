@@ -31,7 +31,7 @@ public class FocusHelper : MonoBehaviour
         newObject.transform.localScale = new Vector3(newObject.transform.localScale.x - 0.15f * (Time.deltaTime * 4),
             newObject.transform.localScale.y - 0.15f * (Time.deltaTime * 4), 1);
         //when the circle is too small, destroy it
-        if (newObject.transform.localScale.x < 0.05 || gameObject.transform.localScale.x != 30)
+        if (newObject.transform.localScale.x < 0.05 || gameObject.transform.localScale.x != 28)
             Destroy(newObject);
     }
 }
