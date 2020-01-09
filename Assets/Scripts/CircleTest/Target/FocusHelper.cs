@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class FocusHelper : MonoBehaviour
 {
-
     public GameObject targetHelper;
     private GameObject newObject;
+    private float circleTimer = 0.3f, circleMaxSize = 28f;
+    private float circleSpeed = 0.3f / 28f;
+
     // Use this for initialization
     void Start()
     {
         //if there is none or more than 1 circle
-        if(SpawnCircle.targetCircle.Count != 1)
+        if (SpawnCircle.targetCircle.Count != 1)
             return;
         //spawn a red circle on the target
         newObject = Instantiate(targetHelper);
@@ -24,14 +26,16 @@ public class FocusHelper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float lastCircleTimer = circleTimer;
+        circleTimer -= Time.deltaTime;
+
         //if the red circle is destroyed
-        if(newObject == null)
+        if (newObject == null)
             return;
         //decrease the scale of the red circle
-        newObject.transform.localScale = new Vector3(newObject.transform.localScale.x - 0.15f * (Time.deltaTime * 4),
-            newObject.transform.localScale.y - 0.15f * (Time.deltaTime * 4), 1);
+        newObject.transform.localScale = new Vector3(newObject.transform.localScale.x * circleTimer / lastCircleTimer,
+            newObject.transform.localScale.y * circleTimer / lastCircleTimer, 1);
         //when the circle is too small, destroy it
-        if (newObject.transform.localScale.x < 0.05 || gameObject.transform.localScale.x != 28)
-            Destroy(newObject);
+        if (newObject.transform.localScale.x < 0.05 || circleTimer <= 0) Destroy(newObject);
     }
 }
