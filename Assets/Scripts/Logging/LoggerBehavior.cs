@@ -138,7 +138,7 @@ public class LoggerBehavior : MonoBehaviour
             confGaze = PupilData._2D.GazePosition != Vector2.zero ? Math.Round((PupilLabData.confidence0 + PupilLabData.confidence1) / 2, 3) : double.NaN,
             //target size in the accuracy test scene, can be translated to the offset from the center of the scene
             circleSize = circleObject != null ? Math.Round(circleObject.transform.localScale.x, 3) : double.NaN,
-            accuracyCalc = circleObject != null ? circleObject.transform.localScale.x * (1f / 30f) : double.NaN,
+            accuracyCalc = circleObject != null ? circleObject.transform.localScale.x * (1f / 28f) : double.NaN,
             offsetX = Math.Round(Convert.ToSingle(gazePosx) - circleXpos, 3),
             offsetY = Math.Round(Convert.ToSingle(gazePosy) - circleYpos, 3),
             //TTFF of the targets in the accuracy test scene

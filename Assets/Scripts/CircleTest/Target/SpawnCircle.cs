@@ -28,7 +28,7 @@ public class SpawnCircle : MonoBehaviour
     new Vector3(-30f,0f,-0.05f), new Vector3(0f,0f,-0.05f), new Vector3(30f,0f,-0.05f),
     new Vector3(-30f,-30f,-0.05f), new Vector3(0f,-30f,-0.05f), new Vector3(30f,-30f,-0.05f)};
 
-    public static float[] circleFinalSize = { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
+    public static float[] circleFinalSize = { 28, 28, 28, 28, 28, 28, 28, 28, 28 };
     public static Vector3[] finalGazePos = new Vector3[9];
     private bool[] isVisited = new bool[9];
     public List<int> indexOrder = new List<int>();
@@ -106,7 +106,7 @@ public class SpawnCircle : MonoBehaviour
                 loggingManager.UploadLogs();
             }
         } else {
-            currentEyeAccuracy = 1f - targetCircle[targetCircle.Count-1].transform.localScale.x * (1f / 30f);
+            currentEyeAccuracy = 1f - targetCircle[targetCircle.Count-1].transform.localScale.x * (1f / 28f);
         }
     }
 
@@ -275,7 +275,7 @@ public class SpawnCircle : MonoBehaviour
                 Destroy(obj);
             }
             goPathList.Clear();
-            circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
+            circleFinalSize = new float[] { 28, 28, 28, 28, 28, 28, 28, 28, 28 };
             finalGazePos = new Vector3[9];
             GazeMarker.gazePath.Clear();
             GazeMarker.savedGazePath.Clear();
@@ -293,7 +293,7 @@ public class SpawnCircle : MonoBehaviour
         targetCircle.Clear();
         offsetGazeList.Clear();
         goPathList.Clear();
-        circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
+        circleFinalSize = new float[] { 28, 28, 28, 28, 28, 28, 28, 28, 28 };
         finalGazePos = new Vector3[9];
         GazeMarker.gazePath.Clear();
         GazeMarker.savedGazePath.Clear();

@@ -70,10 +70,11 @@ public class GameController : MonoBehaviour
                 {
                     ReduceCircle(hit.transform.gameObject);
                 }
-                else
+                // This part was commented to stop the possibility of each circles grow up after gaze go inside them
+                /*else
                 {
                     ExtendCircle(SpawnCircle.targetCircle[0]);
-                }
+                }*/
             }
         }
     }
@@ -118,7 +119,7 @@ public class GameController : MonoBehaviour
     private void ExtendCircle(GameObject circle)
     {
         //if it's smaller than the max circle size
-        if (circle.transform.localScale.x < 30)
+        if (circle.transform.localScale.x < 28)
         {
             //15f * Time.deltaTime so the computers speed doesn't affect the speed
             circle.transform.localScale =

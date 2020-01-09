@@ -36,19 +36,5 @@ public class CrossController : MonoBehaviour
             else
                 gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
-        //switch the color of the cross
-        waitTime += Time.deltaTime;
-        if (waitTime < timer)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.white;
-        }
-        if (waitTime > timer)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
-        }
-        if (waitTime > timer * 2)
-        {
-            waitTime = 0;
-        }
     }
 }

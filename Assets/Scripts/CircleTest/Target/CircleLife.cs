@@ -40,7 +40,7 @@ public class CircleLife : MonoBehaviour
 
         if (isTTFF) //update TTFF time until the circle is focused by the gaze point (when the scale change)
             TTFF += Time.deltaTime;
-        if (gameObject.transform.localScale.x < 30)
+        if (gameObject.transform.localScale.x < 28)
             isTTFF = false;
 
         if (Input.GetKeyUp(KeyCode.Space) && StartConfig.inputMode)
